@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>List of Question Sets</title>
+</head>
+<body>
+<h1>List of Question Sets</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Question Set Name</th>
+    <th>Number of Questions</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="questionSet : ${questionSets}">
+    <td th:text="${questionSet.name}"></td>
+    <td th:text="${questionSet.questions.size()}"></td>
+    <td><a th:href="@{/questions/{id}(id=${questionSet.id})}">View Questions</a></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

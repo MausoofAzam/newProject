@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Question</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+<h1>Create Question</h1>
+<form method="post" action="/mcq/saveQuestion">
+  <label for="questionType">Question Type:</label>
+  <input type="text" id="questionType" name="questionType">
+
+  <label for="option1">Option 1:</label>
+  <input type="text" id="option1" name="option1">
+
+  <label for="option2">Option 2:</label>
+  <input type="text" id="option2" name="option2">
+
+  <label for="option3">Option 3:</label>
+  <input type="text" id="option3" name="option3">
+
+  <label for="option4">Option 4:</label>
+  <input type="text" id="option4" name="option4">
+
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title">
+
+  <label for="correctOption">Correct Option:</label>
+  <input type="text" id="correctOption" name="correctOption">
+
+  <label for="totalMarks">Total Marks:</label>
+  <input type="text" id="totalMarks" name="totalMarks">
+
+  <label for="category">Category:</label>
+  <input type="text" id="category" name="category">
+
+  <label for="level">Level:</label>
+  <input type="text" id="level" name="level">
+
+  <label for="questionDescription">Question Description:</label>
+  <input type="text" id="questionDescription" name="questionDescription">
+
+  <button type="submit">Submit</button>
+</form>
+</body>
+</html>
