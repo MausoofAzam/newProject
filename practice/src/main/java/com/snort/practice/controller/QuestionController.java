@@ -48,25 +48,23 @@ public class QuestionController {
         return byCateoryAndLevel;
     }
 
-    /*@GetMapping("/startExamsDemo")
-    public String showNewEmployeeForm(Model model) {
-        // create model attribute to bind form data
-       Question question = new Question();
-        model.addAttribute("question", question);
-        return "startExamsDemo";
-    }*/
-  /*  @GetMapping("/mcq/exam")
-    public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
-                            @RequestParam(required = false, name = "level") String level) {
-        if (category != null && level != null) {
-            List<Question> questions = questionService.findByCateoryAndLevel(category, level);
-            model.addAttribute("questions", questions);
-            System.out.println("List of question: "+questions);
-            return "exam";
-        }
-        return "startExamsDemo";
-    }*/
     @GetMapping("/mcq/exam")
+    public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
+                            @RequestParam(required = false, name = "level") String level, @RequestParam(required = false, name = "setNumber") Integer setNumber) {
+        if (category != null && level != null && setNumber != null) {
+            List<Question> questions = questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
+            model.addAttribute("questions", questions);
+            return "exam";
+        } else {
+            return "startExamsDemo";
+        }
+    }
+
+  /*  @GetMapping("/findQusByCategoryAndLevelAndSetNumber/{category}/{level}/{setNumber}")
+    public List<Question> getQuestionsByCategoryAndLevelAndSetNumber(@PathVariable String category, @PathVariable String level, @PathVariable Integer setNumber){
+        return questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
+    }*/
+    /* @GetMapping("/mcq/exam")
     public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
                             @RequestParam(required = false, name = "level") String level) {
         if (category != null && level != null) {
@@ -76,7 +74,7 @@ public class QuestionController {
         } else {
             return "startExamsDemo";
         }
-    }
+    }*/
 
     @GetMapping("/mcq/exam12")
     public String startExam1(Model model) {

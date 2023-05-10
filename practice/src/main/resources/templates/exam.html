@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>MCQ Practice</title>
+  <title>Questions</title>
   <style>
+   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
@@ -56,30 +57,32 @@
       cursor: pointer;
     }
   </style>
+  </style>
 </head>
 <body>
-<h1>MCQ Practice</h1>
-<form th:object="${questions}" method="get">
-  <table>
-    <thead>
-    <tr>
-      <th>Question</th>
-      <th>Options</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="question : ${questions}">
-      <td th:text="${question.questionType}"></td>
-      <td>
-        <label><input type="radio" name="${question.id}" th:value="${question.options.option1}" th:checked="${question.options.correct}"/> <span th:text="${question.options.option1}"></span></label>
-        <label><input type="radio" name="${question.id}" th:value="${question.options.option2}" th:checked="${question.options.correct}"/> <span th:text="${question.options.option2}"></span></label>
-        <label><input type="radio" name="${question.id}" th:value="${question.options.option3}" th:checked="${question.options.correct}"/> <span th:text="${question.options.option3}"></span></label>
-        <label><input type="radio" name="${question.id}" th:value="${question.options.option4}" th:checked="${question.options.correct}"/> <span th:text="${question.options.option4}"></span></label>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <button type="submit">Submit</button>
-</form>
+<h1>Questions</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Serial Number</th>
+    <th>Question Type</th>
+    <th>Options</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="question, iterStat : ${questions}">
+    <td th:text="${iterStat.count}"></td>
+    <td th:text="${question.questionType}"></td>
+    <td>
+      <ul>
+        <li th:text="${question.options.option1}"></li>
+        <li th:text="${question.options.option2}"></li>
+        <li th:text="${question.options.option3}"></li>
+        <li th:text="${question.options.option4}"></li>
+      </ul>
+    </td>
+  </tr>
+  </tbody>
+</table>
 </body>
 </html>

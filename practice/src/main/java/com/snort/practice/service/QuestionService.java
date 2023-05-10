@@ -59,19 +59,6 @@ public class QuestionService {
         }
     }
 
-   /*  public int calculateResult(String category, String level, List<Long> userAnswers) {
-        List<Question> questions = questionRepository.findByCategoryAndLevel(category, level);
-        int correctAnswers = 0;
-        for (int i = 0; i < questions.size(); i++) {
-            Question question = questions.get(i);
-            Option correctAnswer = question.getAnswer();
-            if (correctAnswer.getId() == userAnswers.get(i)) {
-                correctAnswers++;
-            }
-        }
-        return correctAnswers;
-    }*/
-
     public List<Question> findBySetNumber(Integer setNumber){
         return questionRepository.findBySetNumber(setNumber);
     }
@@ -81,5 +68,8 @@ public class QuestionService {
     public Integer addMarksByCategoryAndLevelAndSetNumber(String category, String level, Integer setNumber){
         return questionRepository.sumByCategoryAndLevelAndSetNumber(category,level,setNumber);
     }
-
+    public List<Question> findQusByCategoryAndLevelAndSetNumber(String category, String level, Integer setNumber){
+        List<Question> questionList = questionRepository.findByCategoryAndLevelAndSetNumber(category, level, setNumber);
+        return questionList;
+    }
 }

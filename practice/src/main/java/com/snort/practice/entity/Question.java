@@ -25,8 +25,8 @@ public class Question {
     private String level;
     private String questionDescription;
     private Integer setNumber;
-    @Transient
-    private Boolean isCorrectAnswer;
+   /* @Transient
+    private Boolean isCorrectAnswer;*/
     public Question(QuestionRequest questionRequest) {
     }
 }
