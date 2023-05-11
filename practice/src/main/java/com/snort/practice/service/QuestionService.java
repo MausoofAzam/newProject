@@ -8,6 +8,8 @@ import com.snort.practice.request.QuestionRequest;
 import com.snort.practice.request.QuestionResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,5 +74,8 @@ public class QuestionService {
     public List<Question> findQusByCategoryAndLevelAndSetNumber(String category, String level, Integer setNumber){
         List<Question> questionList = questionRepository.findByCategoryAndLevelAndSetNumber(category, level, setNumber);
         return questionList;
+    }
+    public Page<Question> findQuestionsByCategoryAndLevelAndSetNumberPaginated(String category, String level, Integer setNumber, Pageable pageable) {
+        return questionRepository.findByCategoryAndLevelAndSetNumber(category, level, setNumber, pageable);
     }
 }

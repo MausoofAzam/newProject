@@ -4,6 +4,10 @@ import com.snort.practice.entity.Question;
 import com.snort.practice.request.QuestionRequest;
 import com.snort.practice.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +53,7 @@ public class QuestionController {
         return byCateoryAndLevel;
     }
 
-    @GetMapping("/mcq/exam")
+ /*   @GetMapping("/mcq/exam")
     public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
                             @RequestParam(required = false, name = "level") String level, @RequestParam(required = false, name = "setNumber") Integer setNumber) {
         if (category != null && level != null && setNumber != null) {
@@ -59,27 +63,33 @@ public class QuestionController {
         } else {
             return "startExamsDemo";
         }
+    }*/
+
+
+    @GetMapping("/mcq/exam")
+    public String startExam(Model model,
+                            @RequestParam(required = false, name = "category") String category,
+                            @RequestParam(required = false, name = "level") String level,
+                            @RequestParam(required = false, name = "setNumber") Integer setNumber,
+                            @PageableDefault(size = 1) Pageable pageable) {
+
+        if (category != null && level != null && setNumber != null) {
+            Page<Question> questions = questionService.findQuestionsByCategoryAndLevelAndSetNumberPaginated(category, level, setNumber, pageable);
+            model.addAttribute("questions", questions);
+            model.addAttribute("category", category);
+            model.addAttribute("level", level);
+            model.addAttribute("setNumber", setNumber);
+            model.addAttribute("totalCount", questionService.countByCategoryAndLevelAndSetNumber(category, level, setNumber));
+            model.addAttribute("totalMarks", questionService.addMarksByCategoryAndLevelAndSetNumber(category, level, setNumber));
+            return "exam122";
+        } else {
+            return "startExamsDemo";
+        }
     }
-  /*@GetMapping("/mcq/exam")
-  public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
-                          @RequestParam(required = false, name = "level") String level,
-                          @RequestParam(required = false, name = "setNumber") Integer setNumber,
-                          @RequestParam(required = false, name = "questionIndex", defaultValue = "0") Integer questionIndex) {
-      if (category != null && level != null && setNumber != null) {
-          List<Question> questions = questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
-          System.out.println("List of Question : "+questions);
-          if (questions.size() > 0) {
-              if (questionIndex >= questions.size()) {
-                  return "examComplete";
-              }
-              Question currentQuestion = questions.get(questionIndex);
-              model.addAttribute("question", currentQuestion);
-              model.addAttribute("questionIndex", questionIndex);
-              return "exam";
-          }
-      }
-      return "startExamsDemo";
-  }*/
+
+
+
+
 
 
 

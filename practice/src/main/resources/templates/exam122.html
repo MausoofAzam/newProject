@@ -1,90 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <meta charset="UTF-8">
   <title>MCQ Exam</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-    }
+        /* CSS styles here */
+    </style>
+  <div>Total Count: <span th:text="${totalCount}"></span></div>
+  <div>Total Marks: <span th:text="${totalMarks}"></span></div>
 
-    h1 {
-      text-align: center;
-    }
-
-    form {
-      margin: 0 auto;
-      width: 80%;
-      background-color: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      padding: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    input[type="radio"] {
-      margin-right: 5px;
-    }
-
-    button[type="submit"] {
-      display: block;
-      margin: 20px auto;
-      padding: 12px 24px;
-      border-radius: 5px;
-      border: none;
-      background-color: #4CAF50;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .question-number {
-      font-weight: bold;
-      margin-right: 5px;
-    }
-
-    .question-text {
-      display: inline;
-    }
-
-    .answer-option {
-      margin-left: 20px;
-    }
-  </style>
 </head>
-
 <body>
-<h1>MCQ Exam</h1>
-<form action="/mcq/exam" method="post">
-  <div>
-    <span class="question-number">Question ${questionNumber}</span>
-    <span class="question-text">${question.questionText}</span>
-  </div>
-  <div>
-    <label>
-      <input type="radio" name="answer" value="option1" th:checked="${question.answer == 'option1'}" />
-      <span class="answer-option">A. ${question.options.option1}</span>
-    </label>
-    <label>
-      <input type="radio" name="answer" value="option2" th:checked="${question.answer == 'option2'}" />
-      <span class="answer-option">B. ${question.options.option2}</span>
-    </label>
-    <label>
-      <input type="radio" name="answer" value="option3" th:checked="${question.answer == 'option3'}" />
-      <span class="answer-option">C. ${question.options.option3}</span>
-    </label>
-    <label>
-      <input type="radio" name="answer" value="option4" th:checked="${question.answer == 'option4'}" />
-      <span class="answer-option">D. ${question.options.option4}</span>
-    </label>
-  </div>
-  <button type="submit">Next Question</button>
-</form>
-</body>
+<!-- display the current question -->
+<div class="question" th:each="question, questionIndex : ${questions.content}">
+  <h3 th:text="${question.questionType}"></h3>
+  <form>
+    <div class="option">
+      <input type="radio" th:id="${'option1-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option1}">
+      <label th:for="${'option1-' + question.id}" th:text="${question.options.option1}"></label>
+    </div>
+    <div class="option">
+      <input type="radio" th:id="${'option2-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option2}">
+      <label th:for="${'option2-' + question.id}" th:text="${question.options.option2}"></label>
+    </div>
+    <div class="option">
+      <input type="radio" th:id="${'option3-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option3}">
+      <label th:for="${'option3-' + question.id}" th:text="${question.options.option3}"></label>
+    </div>
+    <div class="option">
+      <input type="radio" th:id="${'option4-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option4}">
+      <label th:for="${'option4-' + question.id}" th:text="${question.options.option4}"></label>
+    </div>
+  </form>
+</div>
 
+<!-- display the "Next" button if there are more questions -->
+<div class="next" th:if="${questions.hasNext()}">
+  <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number + 1})}">Next</a>
+</div>
+</body>
 </html>

@@ -2,6 +2,8 @@ package com.snort.practice.Repository;
 
 
 import com.snort.practice.entity.Question;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,4 +22,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     Integer countByCategoryAndLevelAndSetNumber(String category,String level,Integer setNumber);
     @Query(value = "select sum(total_marks) from question where category=:category and level= :level and set_number=:setNumber",nativeQuery = true)
     Integer sumByCategoryAndLevelAndSetNumber(String category,String level,Integer setNumber);
+    Page<Question> findByCategoryAndLevelAndSetNumber(String category, String level, Integer setNumber, Pageable pageable);
 }
