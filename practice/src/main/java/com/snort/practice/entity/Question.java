@@ -27,6 +27,7 @@ public class Question {
     private Integer setNumber;
    /* @Transient
     private Boolean isCorrectAnswer;*/
+   private String correctAnswer;
     public Question(QuestionRequest questionRequest) {
     }
 }

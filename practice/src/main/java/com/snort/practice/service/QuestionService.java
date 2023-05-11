@@ -34,6 +34,7 @@ public class QuestionService {
         question.setQuestionDescription(questionRequest.getQuestionDescription());
         question.setLevel(questionRequest.getLevel());
         question.setSetNumber(questionRequest.getSetNumber());
+        question.setCorrectAnswer(questionRequest.getCorrectAnswer());
         question.setQuestionType(questionRequest.getQuestionType());
         question.setTotalMarks(questionRequest.getTotalMarks());
         question.setQuestionType(questionRequest.getQuestionType());

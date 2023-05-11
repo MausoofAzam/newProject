@@ -38,7 +38,8 @@ public class QuestionController {
 
     @PostMapping("/mcq/saveQuestion")
     public String saveQuestion(@ModelAttribute("questionRequest") QuestionRequest questionRequest) {
-        questionService.createQuestion(questionRequest);
+        Question question = questionService.createQuestion(questionRequest);
+        System.out.println("created Question: "+question);
         return "redirect:/mcq/createQuestion";
     }
 
@@ -59,6 +60,28 @@ public class QuestionController {
             return "startExamsDemo";
         }
     }
+  /*@GetMapping("/mcq/exam")
+  public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
+                          @RequestParam(required = false, name = "level") String level,
+                          @RequestParam(required = false, name = "setNumber") Integer setNumber,
+                          @RequestParam(required = false, name = "questionIndex", defaultValue = "0") Integer questionIndex) {
+      if (category != null && level != null && setNumber != null) {
+          List<Question> questions = questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
+          System.out.println("List of Question : "+questions);
+          if (questions.size() > 0) {
+              if (questionIndex >= questions.size()) {
+                  return "examComplete";
+              }
+              Question currentQuestion = questions.get(questionIndex);
+              model.addAttribute("question", currentQuestion);
+              model.addAttribute("questionIndex", questionIndex);
+              return "exam";
+          }
+      }
+      return "startExamsDemo";
+  }*/
+
+
 
   /*  @GetMapping("/findQusByCategoryAndLevelAndSetNumber/{category}/{level}/{setNumber}")
     public List<Question> getQuestionsByCategoryAndLevelAndSetNumber(@PathVariable String category, @PathVariable String level, @PathVariable Integer setNumber){

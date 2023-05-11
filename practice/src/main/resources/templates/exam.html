@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <title>Questions</title>
   <style>
-   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
@@ -19,10 +19,11 @@
       border-collapse: collapse;
       width: 80%;
       background-color: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
-    th, td {
+    th,
+    td {
       padding: 12px 15px;
       text-align: left;
     }
@@ -36,16 +37,12 @@
       background-color: #f2f2f2;
     }
 
-    input[type=radio] {
-      margin-right: 5px;
-    }
-
     label {
       display: block;
       margin-bottom: 8px;
     }
 
-    button[type=submit] {
+    button[type="submit"] {
       display: block;
       margin: 20px auto;
       padding: 12px 24px;
@@ -56,9 +53,27 @@
       font-size: 16px;
       cursor: pointer;
     }
-  </style>
+
+    .question-number {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .question-text {
+      display: inline;
+    }
+
+    .answer-option {
+      margin-left: 20px;
+    }
+
+    .option-label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
   </style>
 </head>
+
 <body>
 <h1>Questions</h1>
 <table>
@@ -71,18 +86,34 @@
   </thead>
   <tbody>
   <tr th:each="question, iterStat : ${questions}">
-    <td th:text="${iterStat.count}"></td>
+    <td>
+      <span class="question-number" th:text="${iterStat.count}"></span>
+      <span class="question-text" th:text="'.'"></span>
+    </td>
     <td th:text="${question.questionType}"></td>
     <td>
       <ul>
-        <li th:text="${question.options.option1}"></li>
-        <li th:text="${question.options.option2}"></li>
-        <li th:text="${question.options.option3}"></li>
-        <li th:text="${question.options.option4}"></li>
+        <li class="answer-option">
+          <span class="option-label">a</span>
+          <span th:text="${question.options.option1}"></span>
+        </li>
+        <li class="answer-option">
+          <span class="option-label">b</span>
+          <span th:text="${question.options.option2}"></span>
+        </li>
+        <li class="answer-option">
+          <span class="option-label">c</span>
+          <span th:text="${question.options.option3}"></span>
+        </li>
+        <li class="answer-option">
+          <span class="option-label">d</span>
+          <span th:text="${question.options.option4}"></span>
+        </li>
       </ul>
     </td>
   </tr>
   </tbody>
 </table>
 </body>
+
 </html>
