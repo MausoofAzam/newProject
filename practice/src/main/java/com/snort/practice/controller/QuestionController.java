@@ -27,6 +27,10 @@ public class QuestionController {
     public String home(Model model) {
         return "index";
     }
+    @GetMapping("/mcq/result")
+    public String showResultPage() {
+        return "result";
+    }
 
     @PostMapping("/mcq/saveQuestions")
     public Question createQuestion(@RequestBody QuestionRequest questionRequest) {

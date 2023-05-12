@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Exam Results</title>
+    <meta charset="UTF-8">
+    <title>Exam Result</title>
+    <style>
+    .result {
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
 </head>
 <body>
-<h1>Exam Results</h1>
-<p>Score: <span th:text="${score}"></span></p>
-<p>Total Questions: <span th:text="${totalQuestions}"></span></p>
-<p>Correct Answers: <span th:text="${correctAnswers}"></span></p>
-<p>Incorrect Answers: <span th:text="${incorrectAnswers}"></span></p>
+<div class="result">
+    <h2>You have successfully completed your exam</h2>
+    <p>Thank you for your participation!</p>
+</div>
 </body>
 </html>

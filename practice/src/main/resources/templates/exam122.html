@@ -3,12 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>MCQ Exam</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
   <style>
-        /* CSS styles here */
-    </style>
-  <div>Total Count: <span th:text="${totalCount}"></span></div>
-  <div>Total Marks: <span th:text="${totalMarks}"></span></div>
+    /* Custom CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+    }
 
+    .header {
+      text-align: right;
+      margin-right: 20px; /* Adjust the margin as needed */
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      margin-top: 10px;
+    }
+
+    .navigation {
+      margin-top: 20px;
+    }
+
+  </style>
 </head>
 <body>
 <!-- display the current question -->
@@ -34,9 +53,31 @@
   </form>
 </div>
 
-<!-- display the "Next" button if there are more questions -->
-<div class="next" th:if="${questions.hasNext()}">
-  <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number + 1})}">Next</a>
+<!-- display buttons based on the question's position -->
+<div class="navigation">
+  <!-- Cancel button -->
+  <button onclick="window.location.href='cancel.html'">Cancel</button>
+
+  <!-- Previous button -->
+  <div class="previous" th:if="${questions.hasPrevious()}">
+    <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number - 1})}">Previous</a>
+  </div>
+
+  <!-- Next button -->
+  <div class="next" th:if="${questions.hasNext()}">
+    <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number + 1})}">Next</a>
+  </div>
+
+  <!-- Submit button -->
+  <div class="submit" th:if="${questions.last}">
+    <button onclick="window.location.href='result.html'">Submit</button>
+  </div>
 </div>
+
+<!-- display page number in the header -->
+<div class="header">
+  <span>Page <span th:text="${questions.number + 1}"></span> of <span th:text="${totalCount}"></span></span>
+</div>
+
 </body>
 </html>
