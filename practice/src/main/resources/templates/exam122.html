@@ -4,54 +4,99 @@
   <meta charset="UTF-8">
   <title>MCQ Exam</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+
   <style>
-    /* Custom CSS styles */
-    body {
-      font-family: Arial, sans-serif;
-    }
+ @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
-    .header {
-      text-align: right;
-      margin-right: 20px; /* Adjust the margin as needed */
-    }
+body {
+ font-family: 'Open Sans', sans-serif;
+ background-color: #f4f4f4;
+}
 
-    .question {
-      margin-bottom: 20px;
-    }
+.container {
+ width: 80%;
+ margin: auto;
+ overflow: hidden;
+}
 
-    .option {
-      margin-top: 10px;
-    }
+.selected-info {
+ padding: 20px;
+ background-color: #4CAF50;
+ color: #fff;
+ display: flex; /* added */
+ justify-content: space-between; /* added */
+}
 
-    .navigation {
-      margin-top: 20px;
-    }
+.selected-info h5 { /* added */
+ margin: 0;
+}
 
-  </style>
+.question {
+ font-family: 'Open Sans', sans-serif;
+ font-size: 20px;
+ color: #333;
+ font-weight: bold;
+ text-align: center;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+}
+
+.option {
+ font-family: 'Open Sans', sans-serif;
+ font-size: 18px;
+ color: #555;
+ margin-bottom: 10px; /* added */
+}
+
+.option input[type="radio"] { /* added */
+ margin-right: 5px; /* added */
+}
+
+.navigation {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 20px;
+}
+
+.header {
+ text-align: center;
+ margin-top: 20px;
+}
+
+ </style>
 </head>
 <body>
-<!-- display the current question -->
-<div class="question" th:each="question, questionIndex : ${questions.content}">
-  <h3 th:text="${question.questionType}"></h3>
-  <form>
-    <div class="option">
-      <input type="radio" th:id="${'option1-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option1}">
-      <label th:for="${'option1-' + question.id}" th:text="${question.options.option1}"></label>
-    </div>
-    <div class="option">
-      <input type="radio" th:id="${'option2-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option2}">
-      <label th:for="${'option2-' + question.id}" th:text="${question.options.option2}"></label>
-    </div>
-    <div class="option">
-      <input type="radio" th:id="${'option3-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option3}">
-      <label th:for="${'option3-' + question.id}" th:text="${question.options.option3}"></label>
-    </div>
-    <div class="option">
-      <input type="radio" th:id="${'option4-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option4}">
-      <label th:for="${'option4-' + question.id}" th:text="${question.options.option4}"></label>
-    </div>
-  </form>
-</div>
+<div class="container">
+  <!-- display the selected category, level, and setNumber -->
+  <div class="selected-info">
+    <h5>Category: <span th:text="${category}"></span></h5>
+    <h5>Level: <span th:text="${level}"></span></h5>
+    <h5>Set Number: <span th:text="${setNumber}"></span></h5>
+  </div>
+
+  <!-- display the current question -->
+  <div class="question" th:each="question, questionIndex : ${questions.content}">
+    <h3 th:text="${question.questionType}"></h3>
+    <form>
+      <div class="option">
+        <input type="radio" th:id="${'option1-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option1}">
+        <label th:for="${'option1-' + question.id}" th:text="${question.options.option1}"></label>
+      </div>
+      <div class="option">
+        <input type="radio" th:id="${'option2-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option2}">
+        <label th:for="${'option2-' + question.id}" th:text="${question.options.option2}"></label>
+      </div>
+      <div class="option">
+        <input type="radio" th:id="${'option3-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option3}">
+        <label th:for="${'option3-' + question.id}" th:text="${question.options.option3}"></label>
+      </div>
+      <div class="option">
+        <input type="radio" th:id="${'option4-' + question.id}" th:name="${'question-' + question.id}" th:value="${question.options.option4}">
+        <label th:for="${'option4-' + question.id}" th:text="${question.options.option4}"></label>
+      </div>
+    </form>
+  </div>
 
 <!-- display buttons based on the question's position -->
 <div class="navigation">
@@ -67,6 +112,7 @@
   <div class="next" th:if="${questions.hasNext()}">
     <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number + 1})}">Next</a>
   </div>
+
 
   <!-- Submit button -->
   <div class="submit" th:if="${questions.last}">

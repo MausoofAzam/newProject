@@ -57,17 +57,20 @@ public class QuestionController {
         return byCateoryAndLevel;
     }
 
- /*   @GetMapping("/mcq/exam")
+    @GetMapping("/mcq/examsList")
     public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
                             @RequestParam(required = false, name = "level") String level, @RequestParam(required = false, name = "setNumber") Integer setNumber) {
         if (category != null && level != null && setNumber != null) {
             List<Question> questions = questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
+            System.out.println("List of Question : "+questions);
             model.addAttribute("questions", questions);
+            model.addAttribute("totalCount", questionService.countByCategoryAndLevelAndSetNumber(category, level, setNumber));
+            model.addAttribute("totalMarks", questionService.addMarksByCategoryAndLevelAndSetNumber(category, level, setNumber));
             return "exam";
         } else {
             return "startExamsDemo";
         }
-    }*/
+    }
 
 
     @GetMapping("/mcq/exam")
