@@ -101,7 +101,7 @@ body {
 <!-- display buttons based on the question's position -->
 <div class="navigation">
   <!-- Cancel button -->
-  <button onclick="window.location.href='cancel.html'">Cancel</button>
+<!--  <button onclick="window.location.href='cancel.html'">Cancel</button>-->
 
   <!-- Previous button -->
   <div class="previous" th:if="${questions.hasPrevious()}">
@@ -116,11 +116,17 @@ body {
 
   <!-- Submit button -->
   <div class="submit" th:if="${questions.last}">
-    <button onclick="window.location.href='result.html'">Submit</button>
+    <a href="/mcq/result">Submit</a>
   </div>
-</div>
 
-<!-- display page number in the header -->
+</div>
+<!--  <form th:action="@{/mcq/result}">-->
+<!--    <button type="submit" th:name="action" th:value="in">Submit Exam</button>-->
+<!--    <button type="submit" th:name="action" th:value="out">check-out</button>-->
+<!--  </form>-->
+
+
+  <!-- display page number in the header -->
 <div class="header">
   <span>Page <span th:text="${questions.number + 1}"></span> of <span th:text="${totalCount}"></span></span>
 </div>

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class QuestionRequest {
 
+    private Long id;
     private String questionType;
     private Integer totalMarks;
     private String category;
@@ -21,5 +22,4 @@ public class QuestionRequest {
     private String title;
     private Integer setNumber;
     private String correctAnswer;
-
 }
