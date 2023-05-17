@@ -1,31 +1,33 @@
 package com.snort.practice.service;
 
-import com.snort.practice.Repository.QuestionAssignmentRepository;
+import com.snort.practice.Repository.QuestionRepository;
+import com.snort.practice.Repository.UserRepository;
 import com.snort.practice.entity.Question;
-import com.snort.practice.entity.QuestionAssignment;
 import com.snort.practice.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class QuestionAssignmentService {
 
-    @Autowired
-    private QuestionAssignmentRepository questionAssignmentRepository;
 
-    public void assignQuestionToUser(User adminUser, User normalUser, Question question, String category, String level, int setNumber) {
-        if (!adminUser.getRole().equals("admin")) {
-//            throw new UnauthorizedAccessException("Only admin users can assign questions.");
-            System.out.println("Only admin users can assign questions.");
+        private final UserRepository userRepository;
+        private final QuestionRepository questionRepository;
+
+        public QuestionAssignmentService(UserRepository userRepository, QuestionRepository questionRepository) {
+            this.userRepository = userRepository;
+            this.questionRepository = questionRepository;
         }
 
-        QuestionAssignment assignment = new QuestionAssignment();
-        assignment.setUser(normalUser);
-        assignment.setQuestion(question);
-        assignment.setCategory(category);
-        assignment.setLevel(level);
-        assignment.setSetNumber(setNumber);
+        public Object assignQuestionsToUser(String username, String category, String level, Integer setNumber) {
+            User user = userRepository.findByName(username).get();
+            List<Question> questions = questionRepository.findByCategoryAndLevelAndSetNumber(category, level, setNumber);
 
-        questionAssignmentRepository.save(assignment);
+            user.setQuestions(questions);
+            userRepository.save(user);
+            return null;
+        }
     }
-}
+
+

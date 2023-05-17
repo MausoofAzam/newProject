@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,7 +35,13 @@ public class User {
     private String imageUrl;
     @Column(length = 500)
     private String about;
-    @OneToMany(mappedBy = "user")
-    private List<QuestionAssignment> questionAssignments;
+    @ManyToMany
+    @JoinTable(
+            name = "user_question_assignment",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
+    private List<Question> questions;
+
 
 }

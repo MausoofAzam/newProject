@@ -1,7 +1,10 @@
 package com.snort.practice.Repository;
 
-import com.snort.practice.entity.QuestionAssignment;
+import com.snort.practice.entity.UserQuestionAssignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuestionAssignmentRepository extends JpaRepository<QuestionAssignment,Long> {
+import java.util.List;
+
+public interface QuestionAssignmentRepository extends JpaRepository<UserQuestionAssignment, Long> {
+    List<UserQuestionAssignment> findByCategoryAndLevelAndSetNumber(String category, String level, Integer setNumber);
 }

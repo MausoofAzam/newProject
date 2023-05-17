@@ -5,12 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "question_assignment")
-public class QuestionAssignment {
+@Table(name = "user_question_assignment")
+public class UserQuestionAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,4 +24,5 @@ public class QuestionAssignment {
     private String level;
     private Integer setNumber;
 
+    // Constructors, getters, and setters
 }
