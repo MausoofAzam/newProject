@@ -11,37 +11,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
     public class AdminController {
+
     private final QuestionAssignmentService questionAssignmentService;
 
     public AdminController(QuestionAssignmentService questionAssignmentService) {
         this.questionAssignmentService = questionAssignmentService;
     }
 
-    @Controller
-    @RequestMapping("/admin")
-    public class AdminController {
-        private final QuestionAssignmentService questionAssignmentService;
-
-        public AdminController(QuestionAssignmentService questionAssignmentService) {
-            this.questionAssignmentService = questionAssignmentService;
-        }
-
-        @PostMapping("/assign-questions")
-        public String assignQuestionsToUser(@RequestParam("username") String username,
-                                            @RequestParam("category") String category,
-                                            @RequestParam("level") String level,
-                                            @RequestParam("setNumber") Integer setNumber) {
-            // Validate the request parameters
-            // Example validation: Check if the required fields are present
+    @PostMapping("/assign-questions")
+    public String assignQuestionsToUser(@RequestParam("username") String username,
+                                        @RequestParam("category") String category,
+                                        @RequestParam("level") String level,
+                                        @RequestParam("setNumber") Integer setNumber) {
+        // Validate the request parameters
+        // Example validation: Check if the required fields are present
            /* if (username == null || category == null || level == null || setNumber == null) {
                 return ResponseEntity.badRequest().body("Invalid request parameters");
             }*/
 
-            // Assign questions to the user based on the provided criteria
-            questionAssignmentService.assignQuestionsToUser(username, category, level, setNumber);
-            return "Assigned Success";
-        }
-
+        // Assign questions to the user based on the provided criteria
+        questionAssignmentService.assignQuestionsToUser(username, category, level, setNumber);
+        return "Assigned Success";
+    }
+}
             /*if (success) {
                 return ResponseEntity.ok("Questions assigned successfully");
             } else {
