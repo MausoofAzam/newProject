@@ -21,9 +21,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "assigned_question_id")
-    private Long assignedQuestionId;
-
     @NotBlank(message = "Name Field Is required !!")
     @Size(min = 2, max = 20, message = "Character in Name Field Should be Between 2-20 !!")
     private String name;
@@ -35,13 +32,6 @@ public class User {
     private String imageUrl;
     @Column(length = 500)
     private String about;
-    @ManyToMany
-    @JoinTable(
-            name = "user_question_assignment",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
-    )
-    private List<Question> questions;
 
 
 }
