@@ -7,27 +7,32 @@ import com.snort.practice.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionAssignmentService {
 
+    private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
 
-        private final UserRepository userRepository;
-        private final QuestionRepository questionRepository;
+    public QuestionAssignmentService(UserRepository userRepository, QuestionRepository questionRepository) {
+        this.userRepository = userRepository;
+        this.questionRepository = questionRepository;
+    }
 
-        public QuestionAssignmentService(UserRepository userRepository, QuestionRepository questionRepository) {
-            this.userRepository = userRepository;
-            this.questionRepository = questionRepository;
-        }
-
-        public Object assignQuestionsToUser(String username, String category, String level, Integer setNumber) {
-            User user = userRepository.findByName(username).get();
+    public void assignQuestionsToUserById(int userId, String category, String level, Integer setNumber) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
             List<Question> questions = questionRepository.findByCategoryAndLevelAndSetNumber(category, level, setNumber);
-
             user.setQuestions(questions);
             userRepository.save(user);
-            return null;
+        } else {
+            // Handle case when user is not found by ID
         }
     }
+
+    // You can add other methods or functionalities as needed
+}
 
 

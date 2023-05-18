@@ -104,7 +104,7 @@ public class QuestionController {
     public List<Question> getQuestionsByCategoryAndLevelAndSetNumber(@PathVariable String category, @PathVariable String level, @PathVariable Integer setNumber){
         return questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
     }*/
-    /* @GetMapping("/mcq/exam")
+   /*  @GetMapping("/mcq/exam")
     public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
                             @RequestParam(required = false, name = "level") String level) {
         if (category != null && level != null) {
