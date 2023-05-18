@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserQuestionService {
@@ -26,5 +27,11 @@ public class UserQuestionService {
             userQuestion.setQuestionId(question.getId());
             userQuestionRepository.save(userQuestion);
         }
+    }
+
+    public List<Question> getAssignedQuestions(Long userId) {
+        List<UserQuestion> userQuestions = userQuestionRepository.findByUserId(userId);
+        List<Long> questionIds = userQuestions.stream().map(UserQuestion::getQuestionId).collect(Collectors.toList());
+        return questionRepository.findAllById(questionIds);
     }
 }
