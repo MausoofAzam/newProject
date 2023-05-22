@@ -15,7 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+//@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class UserController {
     private UserQuestionService userQuestionService;
 
     @PostMapping("/assign/{userId}/{category}/{level}/{setNumber}")
-    public ResponseEntity<?> assignQuestionsToUser(@PathVariable Long userId,
+    public ResponseEntity<?> assignQuestionsToUser(@PathVariable int userId,
                                                    @PathVariable String category,
                                                    @PathVariable String level,
                                                    @PathVariable Integer setNumber) {

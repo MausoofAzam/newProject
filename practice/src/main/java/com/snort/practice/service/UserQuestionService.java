@@ -19,7 +19,7 @@ public class UserQuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
-    public void assignQuestionsToUser(Long userId, String category, String level, Integer setNumber) {
+    public void assignQuestionsToUser(int userId, String category, String level, Integer setNumber) {
         List<Question> questions = questionRepository.findByCategoryAndLevelAndSetNumber(category, level, setNumber);
         for (Question question : questions) {
             UserQuestion userQuestion = new UserQuestion();

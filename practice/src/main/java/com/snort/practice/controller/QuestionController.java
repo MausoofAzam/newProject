@@ -60,12 +60,17 @@ public class QuestionController {
     @GetMapping("/mcq/examsList")
     public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
                             @RequestParam(required = false, name = "level") String level, @RequestParam(required = false, name = "setNumber") Integer setNumber) {
+        System.out.println("category :"+category+"level :"+level+"setNumber : "+setNumber);
         if (category != null && level != null && setNumber != null) {
             List<Question> questions = questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
             System.out.println("List of Question : "+questions);
+            model.addAttribute("category", category);
+            model.addAttribute("level", level);
+            model.addAttribute("setNumber", setNumber);
             model.addAttribute("questions", questions);
             model.addAttribute("totalCount", questionService.countByCategoryAndLevelAndSetNumber(category, level, setNumber));
             model.addAttribute("totalMarks", questionService.addMarksByCategoryAndLevelAndSetNumber(category, level, setNumber));
+
             return "exam";
         } else {
             return "startExamsDemo";
@@ -88,6 +93,7 @@ public class QuestionController {
             model.addAttribute("setNumber", setNumber);
             model.addAttribute("totalCount", questionService.countByCategoryAndLevelAndSetNumber(category, level, setNumber));
             model.addAttribute("totalMarks", questionService.addMarksByCategoryAndLevelAndSetNumber(category, level, setNumber));
+            System.out.println("category :"+category+"level :"+level+"setNumber : "+setNumber);
             return "exam122";
         } else {
             return "startExamsDemo";
@@ -104,17 +110,7 @@ public class QuestionController {
     public List<Question> getQuestionsByCategoryAndLevelAndSetNumber(@PathVariable String category, @PathVariable String level, @PathVariable Integer setNumber){
         return questionService.findQusByCategoryAndLevelAndSetNumber(category, level, setNumber);
     }*/
-   /*  @GetMapping("/mcq/exam")
-    public String startExam(Model model, @RequestParam(required = false, name = "category") String category,
-                            @RequestParam(required = false, name = "level") String level) {
-        if (category != null && level != null) {
-            List<Question> questions = questionService.findByCateoryAndLevel(category, level);
-            model.addAttribute("questions", questions);
-            return "exam";
-        } else {
-            return "startExamsDemo";
-        }
-    }*/
+
 
     @GetMapping("/mcq/exam12")
     public String startExam1(Model model) {

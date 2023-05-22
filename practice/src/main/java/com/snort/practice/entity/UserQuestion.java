@@ -14,7 +14,7 @@ public class UserQuestion {
     private Long id;
 
     @Column(name = "user_id")
-    private Long userId;
+    private int userId;
 
     @Column(name = "question_id")
     private Long questionId;

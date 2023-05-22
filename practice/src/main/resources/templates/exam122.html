@@ -67,13 +67,16 @@ body {
  </style>
 </head>
 <body>
-<div class="container">
-  <!-- display the selected category, level, and setNumber -->
-  <div class="selected-info">
-    <h5>Category: <span th:text="${category}"></span></h5>
-    <h5>Level: <span th:text="${level}"></span></h5>
-    <h5>Set Number: <span th:text="${setNumber}"></span></h5>
+<section>
+  <div class="container">
+    <!-- display the selected category, level, and setNumber -->
+    <div class="selected-info">
+      <h5>Category: <span th:text="${category}"></span></h5>
+      <h5>Level: <span th:text="${level}"></span></h5>
+      <h5>Set Number: <span th:text="${setNumber}"></span></h5>
+    </div>
   </div>
+
 
   <!-- display the current question -->
   <div class="question" th:each="question, questionIndex : ${questions.content}">
@@ -98,38 +101,39 @@ body {
     </form>
   </div>
 
-<!-- display buttons based on the question's position -->
-<div class="navigation">
-  <!-- Cancel button -->
-<!--  <button onclick="window.location.href='cancel.html'">Cancel</button>-->
+  <!-- display buttons based on the question's position -->
+  <div class="navigation">
+    <!-- Cancel button -->
+    <!--  <button onclick="window.location.href='cancel.html'">Cancel</button>-->
 
-  <!-- Previous button -->
-  <div class="previous" th:if="${questions.hasPrevious()}">
-    <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number - 1})}">Previous</a>
+    <!-- Previous button -->
+    <div class="previous" th:if="${questions.hasPrevious()}">
+      <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number - 1})}">Previous</a>
+    </div>
+
+    <!-- Next button -->
+    <div class="next" th:if="${questions.hasNext()}">
+      <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number + 1})}">Next</a>
+    </div>
+
+
+    <!-- Submit button -->
+    <div class="submit" th:if="${questions.last}">
+      <a href="/mcq/result">Submit</a>
+    </div>
+
   </div>
-
-  <!-- Next button -->
-  <div class="next" th:if="${questions.hasNext()}">
-    <a th:href="@{/mcq/exam(category=${category}, level=${level}, setNumber=${setNumber}, page=${questions.number + 1})}">Next</a>
-  </div>
-
-
-  <!-- Submit button -->
-  <div class="submit" th:if="${questions.last}">
-    <a href="/mcq/result">Submit</a>
-  </div>
-
-</div>
-<!--  <form th:action="@{/mcq/result}">-->
-<!--    <button type="submit" th:name="action" th:value="in">Submit Exam</button>-->
-<!--    <button type="submit" th:name="action" th:value="out">check-out</button>-->
-<!--  </form>-->
+  <!--  <form th:action="@{/mcq/result}">-->
+  <!--    <button type="submit" th:name="action" th:value="in">Submit Exam</button>-->
+  <!--    <button type="submit" th:name="action" th:value="out">check-out</button>-->
+  <!--  </form>-->
 
 
   <!-- display page number in the header -->
-<div class="header">
-  <span>Page <span th:text="${questions.number + 1}"></span> of <span th:text="${totalCount}"></span></span>
-</div>
+  <div class="header">
+    <span>Page <span th:text="${questions.number + 1}"></span> of <span th:text="${totalCount}"></span></span>
+  </div>
 
+</section>
 </body>
 </html>
