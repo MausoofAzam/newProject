@@ -32,6 +32,7 @@ public class User {
     private String imageUrl;
     @Column(length = 500)
     private String about;
+    private int score;
 
 
 }

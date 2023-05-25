@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}">Success</title>
+</head>
+<body>
+<section>
+  <div class="container">
+    <!-- display the selected category, level, and setNumber -->
+
+    <!-- display the current question -->
+    <div class="question" th:each="question, questionIndex : ${questions.content}">
+      <h2><span th:text="${(pageNumber - 1) * questions.size + questionIndex.index + 1}"></span>. <span
+              th:text="${question.questionType}"></span></h2>
+      <form>
+        <div class="option">
+          <input type="radio" th:id="${'option1-' + question.id}" th:name="${'question-' + question.id}"
+                 th:value="${question.options.option1}" onclick="storeAnswer(this)">
+          <label th:for="${'option1-' + question.id}" th:text="${question.options.option1}"></label>
+        </div>
+        <div class="option">
+          <input type="radio" th:id="${'option2-' + question.id}" th:name="${'question-' + question.id}"
+                 th:value="${question.options.option2}" onclick="storeAnswer(this)">
+          <label th:for="${'option2-' + question.id}" th:text="${question.options.option2}"></label>
+        </div>
+        <div class="option">
+          <input type="radio" th:id="${'option3-' + question.id}" th:name="${'question-' + question.id}"
+                 th:value="${question.options.option3}" onclick="storeAnswer(this)">
+          <label th:for="${'option3-' + question.id}" th:text="${question.options.option3}"></label>
+        </div>
+        <div class="option">
+          <input type="radio" th:id="${'option4-' + question.id}" th:name="${'question-' + question.id}"
+                 th:value="${question.options.option4}" onclick="storeAnswer(this)">
+          <label th:for="${'option4-' + question.id}" th:text="${question.options.option4}"></label>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <div th:if="${pageNumber > 1}">
+        <a th:href="@{/user/assigned-question(pageNumber=${pageNumber - 1})}">Previous</a>
+      </div>
+
+      <div th:if="${pageNumber < totalPages}">
+        <a th:href="@{/user/assigned-question(pageNumber=${pageNumber + 1})}">Next</a>
+      </div>
+
+      <!-- Submit button -->
+      <div class="submit" th:if="${questions.last}">
+        <a href="/user/result">Submit</a>
+      </div>
+      <div class="selected-info">
+        <h5 hidden="hidden">UserId: <span th:text="${userId}"></span></h5>
+        <h5>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></h5>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+    function storeAnswer(radioButton) {
+        // Retrieve the selected answer from the clicked radio button
+        var selectedAnswer = radioButton.value;
+
+        // Retrieve the question ID from the radio button's ID
+        var questionId = radioButton.id.split('-')[1];
+
+        // Send an AJAX request to update the UserQuestion entity with the selected answer
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', '/user/assigned-question/update-answer', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Answer updated successfully');
+            }
+        };
+
+        var data = JSON.stringify({
+            userId: /* Retrieve the user ID */,
+            questionId: questionId,
+            answer: selectedAnswer
+        });
+
+        xhr.send(data);
+    }
+</script>
+</body>
+</html>

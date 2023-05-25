@@ -1,13 +1,19 @@
 package com.snort.practice.controller;
 
+import com.snort.practice.Repository.QuestionRepository;
+import com.snort.practice.Repository.UserQuestionRepository;
+import com.snort.practice.entity.ExamResult;
 import com.snort.practice.entity.Question;
+import com.snort.practice.entity.UserQuestion;
 import com.snort.practice.request.QuestionRequest;
 import com.snort.practice.service.QuestionService;
+import com.snort.practice.service.UserQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 //@RestController
@@ -22,6 +29,13 @@ import java.util.Map;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    UserQuestionService userQuestionService;
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    UserQuestionRepository userQuestionRepository;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -98,6 +112,9 @@ public class QuestionController {
         } else {
             return "startExamsDemo";
         }
+
+
+
     }
 
 
@@ -146,4 +163,61 @@ public class QuestionController {
         System.out.println("addTotalMarksByCategoryAndLevelAndSetNumber : " + sum);
         return sum;
     }
+
+
+        /*handler for exam result*/
+    @GetMapping("/result/{userId}")
+    public ResponseEntity<ExamResult> getExamResult(@PathVariable int userId) {
+        ExamResult examResult = userQuestionService.getExamResult(userId);
+        return ResponseEntity.ok(examResult);
+    }
+
+
+
+
+
+    /*handler for receiving the question*/
+
+    @RestController
+    @RequestMapping("/user/assigned-question")
+    public class UserQuestionController {
+
+        // Autowire the necessary dependencies
+
+        @PostMapping("/update-answer")
+        public ResponseEntity<String> updateAnswer(@RequestBody UserQuestion userQuestion) {
+            // Retrieve the user ID and question ID from the UserQuestion object
+            int userId = userQuestion.getUserId();
+            Long questionId = userQuestion.getQuestionId();
+
+            // Retrieve the question from the database using the question ID
+            Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+            if (optionalQuestion.isEmpty()) {
+                return ResponseEntity.badRequest().body("Question not found");
+            }
+            Question question = optionalQuestion.get();
+
+            // Check if the selected answer is correct
+            boolean isCorrectAnswer = question.getCorrectAnswer().equals(userQuestion.getAnswer());
+
+            // Calculate the score based on whether the answer is correct or not
+            int score = isCorrectAnswer ? question.getTotalMarks() : 0;
+
+            // Save the user's attempted question, their answer, and the score in the database
+            UserQuestion attemptedQuestion = new UserQuestion();
+            attemptedQuestion.setUserId(userId);
+            attemptedQuestion.setQuestionId(questionId);
+            attemptedQuestion.setAnswer(userQuestion.getAnswer());
+            attemptedQuestion.setScore(score);
+
+            userQuestionRepository.save(attemptedQuestion);
+
+            // Return a response indicating the status of the update
+            return ResponseEntity.ok("Answer updated successfully");
+        }
+
+        // Other methods in the controller
+    }
+
+
 }

@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/assigned/{userId}")
-    public ResponseEntity<List<Question>> getAssignedQuestions(@PathVariable Long userId) {
+    public ResponseEntity<List<Question>> getAssignedQuestions(@PathVariable int userId) {
         List<Question> questions = userQuestionService.getAssignedQuestions(userId);
         return ResponseEntity.ok(questions);
     }
