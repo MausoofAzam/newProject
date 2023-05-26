@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Table(name = "question")
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String questionType;
 

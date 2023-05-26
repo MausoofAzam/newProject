@@ -16,23 +16,23 @@
       <form>
         <div class="option">
           <input type="radio" th:id="${'option1-' + question.id}" th:name="${'question-' + question.id}"
-                 th:value="${question.options.option1}" onclick="storeAnswer(this)">
-          <label th:for="${'option1-' + question.id}" th:text="${question.options.option1}"></label>
+                 th:value="${question.option1}" onclick="storeAnswer(this)">
+          <label th:for="${'option1-' + question.id}" th:text="${question.option1}"></label>
         </div>
         <div class="option">
           <input type="radio" th:id="${'option2-' + question.id}" th:name="${'question-' + question.id}"
-                 th:value="${question.options.option2}" onclick="storeAnswer(this)">
-          <label th:for="${'option2-' + question.id}" th:text="${question.options.option2}"></label>
+                 th:value="${question.option2}" onclick="storeAnswer(this)">
+          <label th:for="${'option2-' + question.id}" th:text="${question.option2}"></label>
         </div>
         <div class="option">
           <input type="radio" th:id="${'option3-' + question.id}" th:name="${'question-' + question.id}"
-                 th:value="${question.options.option3}" onclick="storeAnswer(this)">
-          <label th:for="${'option3-' + question.id}" th:text="${question.options.option3}"></label>
+                 th:value="${question.option3}" onclick="storeAnswer(this)">
+          <label th:for="${'option3-' + question.id}" th:text="${question.option3}"></label>
         </div>
         <div class="option">
           <input type="radio" th:id="${'option4-' + question.id}" th:name="${'question-' + question.id}"
-                 th:value="${question.options.option4}" onclick="storeAnswer(this)">
-          <label th:for="${'option4-' + question.id}" th:text="${question.options.option4}"></label>
+                 th:value="${question.option4}" onclick="storeAnswer(this)">
+          <label th:for="${'option4-' + question.id}" th:text="${question.option4}"></label>
         </div>
       </form>
     </div>

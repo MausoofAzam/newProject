@@ -40,9 +40,6 @@ public class UserQuestionService {
         return questionRepository.findAllById(questionIds);
     }
 
-
-
-
     public ExamResult getExamResult(int userId) {
         // Retrieve all UserQuestion records for the given user
         List<UserQuestion> userQuestions = userQuestionRepository.findByUserId(userId);
