@@ -17,17 +17,19 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String questionType;
-    @OneToOne
-    @JoinColumn(name = "options_id")
-    private Option options;
+
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
+    private String title;
+
     private Integer totalMarks;
     private String category;
     private String level;
     private String questionDescription;
     private Integer setNumber;
-   /* @Transient
-    private Boolean isCorrectAnswer;*/
-   private String correctAnswer;
+    private String correctAnswer;
     public Question(QuestionRequest questionRequest) {
     }
 }

@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Controller
-//@RestController
+//@Controller
+@RestController
 @CrossOrigin("*")
 public class QuestionController {
     @Autowired
